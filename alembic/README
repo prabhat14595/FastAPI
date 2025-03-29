@@ -1,0 +1,47 @@
+# Alembic
+
+Alembic is a lightweight database migration tool for usage with SQLAlchemy. It is used to manage database schema changes in a consistent and version-controlled manner.
+
+## Key Features of Alembic
+- Version control for database schemas.
+- Handles upgrades and downgrades of database schemas.
+- Integrates seamlessly with SQLAlchemy.
+
+## How Alembic Works
+Alembic uses migration scripts to define changes to the database schema. These scripts can be auto-generated or manually created. Each migration script contains two main functions:
+- `upgrade()`: Defines the changes to apply to the database schema.
+- `downgrade()`: Defines how to revert the changes.
+
+## Common Alembic Commands
+1. **Initialize Alembic**:
+    ```bash
+    alembic init alembic
+    ```
+    This creates the Alembic directory structure.
+
+2. **Generate a New Migration**:
+    ```bash
+    alembic revision --autogenerate -m "Migration message"
+    ```
+    This generates a new migration script based on changes detected in the SQLAlchemy models.
+
+3. **Apply Migrations**:
+    ```bash
+    alembic upgrade head
+    ```
+    This applies all unapplied migrations to the database.
+
+4. **Revert Migrations**:
+    ```bash
+    alembic downgrade -1
+    ```
+    This reverts the last applied migration.
+
+5. **Check Current Migration Version**:
+    ```bash
+    alembic current
+    ```
+    Displays the current migration version in the database.
+
+## Directory Structure
+After initializing Alembic, the directory structure looks like this:
