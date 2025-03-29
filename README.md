@@ -49,3 +49,21 @@
             project/alembic/env.py \
             project/alembic/README
     ```
+
+    Ensure that `project/app/main.py` contains an ASGI app named `app`, for example:
+    ```python
+    from fastapi import FastAPI
+
+    app = FastAPI()
+
+    @app.get("/")
+    def read_root():
+        return {"message": "Hello, World!"}
+    ```
+
+
+
+    python -m pip install --upgrade pip
+    python -m pip install -r requirements.txt
+    uvicorn main:app --reload
+
