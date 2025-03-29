@@ -1,9 +1,16 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Union
+from app.db.mongodata import db
+from app.config.settings import settings
+from bson import ObjectId
+from app.utils.logger import logger
 
-router = APIRouter()
 #app = FastAPI()
+router = APIRouter()
+
+# Initialize MongoDB connection
+collection = db[settings.COLLECTION_NAME]
 
 class Item(BaseModel):
     name: str
@@ -43,3 +50,20 @@ def read_item(item_id: int, q: Union[str, None] = None):
 @router.put("/items/{item_id}")
 def update_item(item_id: int, item: Item):
     return {"item_name": item.name, "item_id": item_id}
+
+@router.post("/dbitems/")
+async def create_item(item: dict):
+    result = await collection.insert_one(item)
+    return {"message": "Item created", "id": str(result.inserted_id)}
+
+@router.get("/dbitems/{item_id}")
+async def get_item(item_id: str):
+    try:
+        obj_id = ObjectId(item_id)  # Convert string ID to ObjectId
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid ID format")
+    logger.info(f"Fetching item with ID: {item_id}")
+    item = await collection.find_one({"oid": item_id})
+    if item:
+        return item
+    raise HTTPException(status_code=404, detail="Item not found")
