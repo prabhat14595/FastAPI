@@ -62,8 +62,15 @@
     ```
 
 
+## Run these commands to run the application
+    ```bash
+    # Upgrade pip to the latest version
+    python3 -m pip install --upgrade pip
 
-    python -m pip install --upgrade pip
+    # Install project dependencies
     python -m pip install -r requirements.txt
-    uvicorn main:app --reload
+
+    # Set the PYTHONPATH environment variable and run the application
+    fastapi dev main.py
+    ```
 
