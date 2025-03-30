@@ -3,7 +3,7 @@ from logging.handlers import RotatingFileHandler
 import os
 
 # Create logs directory if it doesn't exist
-LOG_DIR = "logs"
+LOG_DIR = os.getenv("LOG_PATH", "logs")
 if not os.path.exists(LOG_DIR):
     os.makedirs(LOG_DIR)
 
@@ -27,6 +27,9 @@ logging.basicConfig(level=LOG_LEVEL, handlers=[file_handler, console_handler])
 
 # Create a logger instance
 logger = logging.getLogger("appLogger")
+
+# Disable debug logs for PyMongo
+logging.getLogger("pymongo").setLevel(logging.WARNING)
 
 # Example usage
 if __name__ == "__main__":
