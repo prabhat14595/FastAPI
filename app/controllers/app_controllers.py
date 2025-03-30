@@ -1,8 +1,8 @@
+import os
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from typing import Union
 from app.db.mongodata import db
-from app.config.settings import settings
 from bson import ObjectId
 from app.utils.logger import logger
 
@@ -10,7 +10,9 @@ from app.utils.logger import logger
 router = APIRouter()
 
 # Initialize MongoDB connection
-collection = db[settings.COLLECTION_NAME]
+collection_name = os.getenv("COLLECTION_NAME")
+collection = db[collection_name]
+logger.info(f"MongoDB collection: {collection}")
 
 class Item(BaseModel):
     name: str
@@ -62,8 +64,14 @@ async def get_item(item_id: str):
         obj_id = ObjectId(item_id)  # Convert string ID to ObjectId
     except Exception:
         raise HTTPException(status_code=400, detail="Invalid ID format")
+
     logger.info(f"Fetching item with ID: {item_id}")
-    item = await collection.find_one({"oid": item_id})
+    
+    item = await collection.find_one({"_id": obj_id})
+
     if item:
+        # Convert ObjectId to string
+        item["_id"] = str(item["_id"])
         return item
+
     raise HTTPException(status_code=404, detail="Item not found")

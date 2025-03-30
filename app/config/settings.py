@@ -1,16 +1,16 @@
-from pydantic_settings import BaseSettings
-from dotenv import load_dotenv
+import os
 
-# Load environment variables
-load_dotenv()
+# Read .env file manually and set environment variables
+env_path = os.path.join(os.path.dirname(__file__), "../../.env")
+with open(env_path) as f:
+    for line in f:
+        if line.strip() and not line.startswith("#"):  # Ignore empty lines and comments
+            key, value = line.strip().split("=", 1)
+            os.environ[key] = value  # Set environment variable
 
-class Settings(BaseSettings):
-    MONGO_URI: str
-    DATABASE_NAME: str
-    COLLECTION_NAME: str
+# Now you can access them directly
+MONGO_URI = os.getenv("MONGO_URI")
+DATABASE_NAME = os.getenv("DATABASE_NAME")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 
-    class Config:
-        env_file = ".env"  # Points to your .env file
-
-# Create an instance of Settings
-settings = Settings()
+#print("MONGO_URI:", MONGO_URI)  # Debugging
