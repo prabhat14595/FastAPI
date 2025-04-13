@@ -35,6 +35,7 @@ fake_users_db = {
 def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
+# Test user creation for demonstration purposes
 def get_user(username: str):
     user = fake_users_db.get(username)
     return user
