@@ -8,3 +8,4 @@ passlib[bcrypt]
 flask-jwt-extended
 security
 bcrypt
+python-jose
