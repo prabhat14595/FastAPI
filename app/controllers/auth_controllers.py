@@ -6,6 +6,7 @@ from typing import Dict
 from app.db.mongodata import db
 from app.utils.logger import logger
 from fastapi.security import OAuth2PasswordRequestForm
+from fastapi.security import OAuth2PasswordBearer
 from app.auth_security.auth import authenticate_user, create_access_token, get_current_user
 from typing import Dict
 from pydantic import BaseModel
@@ -28,6 +29,16 @@ users_db: Dict[str, dict] = {}
 class UserRegister(BaseModel):
     username: str
     password: str
+
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/auth/token")
+
+@auth_router.get("/protected", tags=["Protected"])
+async def protected_endpoint(token: str = Depends(oauth2_scheme)):
+    """
+    A protected endpoint that requires authentication.
+    """
+    return {"message": "You are authenticated!", "token": token}
 
 
 @auth_router.post("/register", tags=["Authentication"])
