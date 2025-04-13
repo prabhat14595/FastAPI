@@ -1,0 +1,13 @@
+# Exclude Python cache files
+__pycache__/
+*.pyc
+*.pyo
+
+# Exclude environment files
+.env
+
+# Exclude virtual environment
+.venv/
+
+# Exclude other unnecessary files
+*.log

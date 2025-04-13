@@ -89,3 +89,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 
+##Docker Image running 
+```bash
+    docker build -t your-docker-registry/fastapi-app:latestV0.0.1 .  
+    docker run -p 8000:8000 your-docker-registry/fastapi-app:latestV0.0.2
+    ## Env file 
+    docker run --env-file .env -p 8000:8000 your-docker-registry/fastapi-app:latestV0.0.2
+```
+
+
