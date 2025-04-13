@@ -75,4 +75,17 @@
     ```
 
 
+## Set .env file here which contains the below configs for application to run 
+```bash
+MONGO_URI=mongodb://localhost:27017
+DATABASE_NAME=<DB_name>
+COLLECTION_NAME=workspace
+COLLECTION_NAME_AUTH=users
+LOG_PATH=/path/to/logs
+SECRET_KEY='Your Secret Key'
+ALGORITHM=HS256
+# Duration (in minutes) for which the access token remains valid (default: 30 minutes)
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+```
+
 

@@ -4,3 +4,7 @@ motor
 python-dotenv
 pydantic
 pydantic-settings
+passlib[bcrypt]
+flask-jwt-extended
+security
+bcrypt
