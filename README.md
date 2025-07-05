@@ -98,3 +98,48 @@ ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
 
+## Frontend (React) Usage
+
+The `frontend/` folder contains a React app that provides a UI for all FastAPI endpoints.
+
+### Features
+- User Registration (`/auth/register`)
+- User Login (`/auth/token`)
+- Access Protected Endpoint (`/auth/protected`)
+- Healthcheck (`/api/healthcheck`)
+- Create Item (`/api/items/`)
+- Get Item by ID (`/api/items/{item_id}`)
+
+### How to Run the Frontend
+
+1. Go to the frontend directory:
+    ```bash
+    cd frontend
+    ```
+2. Install dependencies:
+    ```bash
+    npm install
+    ```
+3. Start the React app:
+    ```bash
+    npm start
+    ```
+4. The app will be available at [http://localhost:3000](http://localhost:3000)
+
+### Project Structure (Frontend)
+- `src/api.js` — API utility for all backend endpoints
+- `src/Register.js` — User registration form
+- `src/Login.js` — User login form
+- `src/Protected.js` — Protected endpoint access
+- `src/Healthcheck.js` — Health check UI
+- `src/CreateItem.js` — Create item form
+- `src/GetItem.js` — Get item by ID form
+- `src/App.js` — Main app, renders all components
+
+### Authentication
+- JWT token is stored in `localStorage` after login.
+- All protected endpoints require the token in the `Authorization: Bearer <token>` header.
+
+---
+
+
