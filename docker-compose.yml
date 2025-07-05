@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: fastapi-backend
+    env_file:
+      - ./backend/.env
+    volumes:
+      - ./fastapi-mlops/logs:/var/log/fastapi
+    ports:
+      - "8000:8000"
+    depends_on:
+      - mongodb
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: react-frontend
+    ports:
+      - "3000:80"
+    stdin_open: true
+    tty: true
+
+  mongodb:
+    image: mongo:6.0
+    container_name: mongo-db
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
