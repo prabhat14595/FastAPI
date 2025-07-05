@@ -1,0 +1,11 @@
+fastapi[standard]
+uvicorn
+motor
+python-dotenv
+pydantic
+pydantic-settings
+passlib[bcrypt]
+flask-jwt-extended
+security
+bcrypt>=3.2.0,<4.1.0
+python-jose
